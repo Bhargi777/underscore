@@ -23,7 +23,7 @@
 
 1.  Navigate to the project root:
     ```bash
-    cd research-os
+    cd underscore
     ```
 
 2.  Install `uv` (if not installed):
@@ -37,9 +37,9 @@
     ```
 
 4.  (Optional) Setup Auto-Activation:
-    **Important:** Ensure you are in the `research-os` directory.
+    **Important:** Ensure you are in the `underscore` directory.
     ```bash
-    cd research-os  # If not already there
+    cd underscore  # If not already there
     ./scripts/setup_auto_activate.ps1
     ```
 
@@ -110,6 +110,4 @@ Access the UI at: **http://localhost:5173**
 - **Neo4j Connection Error**: Ensure Docker is running and the password in `.env` matches `docker-compose.yml` (Default: `password`).
 - **PDF Parsing Fails**: Ensure the Grobid service is healthy (`localhost:8070`).
 
-## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
