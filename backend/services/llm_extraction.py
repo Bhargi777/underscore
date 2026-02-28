@@ -10,23 +10,12 @@ class LLMExtractor:
         self.model = settings.LLM_MODEL
 
     def _call_llm(self, messages, temperature=0.1):
-        url = f"{self.base_url}/chat/completions"
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {self.api_key}"
-        }
-        payload = {
-            "model": self.model,
-            "messages": messages,
-            "temperature": temperature
-        }
         try:
-            resp = requests.post(url, headers=headers, json=payload, timeout=60)
-            resp.raise_for_status()
-            choice = resp.json()["choices"][0]["message"]["content"]
-            return choice
+            from backend.services.aws_service import aws_service
+            # Migrate to Amazon Bedrock
+            return aws_service.invoke_bedrock_llm(messages, temperature=temperature)
         except Exception as e:
-            logger.error(f"LLM call failed: {e}")
+            logger.error(f"Bedrock LLM call failed: {e}")
             raise e
 
     def extract_raw_concepts(self, text_chunk: str):
