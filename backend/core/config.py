@@ -25,4 +25,9 @@ class Settings:
     LLM_API_KEY = os.getenv("LLM_API_KEY", "local-llm")
     LLM_MODEL = os.getenv("LLM_MODEL", "openai-oss-20b")
 
+    # AWS configuration
+    AWS_REGION = os.getenv("AWS_REGION", "us-east-1")
+    AWS_S3_BUCKET = os.getenv("AWS_S3_BUCKET", "research-os-bucket")
+    AWS_DYNAMODB_TABLE = os.getenv("AWS_DYNAMODB_TABLE", "ResearchOSTable")
+
 settings = Settings()
