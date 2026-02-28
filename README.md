@@ -109,3 +109,7 @@ Access the UI at: **http://localhost:5173**
 
 - **Neo4j Connection Error**: Ensure Docker is running and the password in `.env` matches `docker-compose.yml` (Default: `password`).
 - **PDF Parsing Fails**: Ensure the Grobid service is healthy (`localhost:8070`).
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
