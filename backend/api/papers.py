@@ -57,6 +57,21 @@ async def upload_paper(
     db.commit()
     db.refresh(new_job)
 
+    # 3.5 Sync metadata to Amazon DynamoDB
+    try:
+        from backend.services.aws_service import aws_service
+        aws_service.write_to_dynamodb({
+            "JobID": str(new_job.id),
+            "PaperID": str(new_paper.id),
+            "Filename": file.filename,
+            "Status": "queued",
+            "Scope": scope
+        })
+    except Exception as e:
+        # Just log instead of failing request
+        import logging
+        logging.getLogger(__name__).warning(f"Failed to sync with DynamoDB: {e}")
+
     # 4. Monitor: Trigger Celery Pipeline
     # Using chain to enforce order
     workflow = chain(
