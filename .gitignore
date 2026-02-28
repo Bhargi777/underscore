@@ -16,3 +16,4 @@ storage/images/*
 storage/embeddings/*
 storage/cache/*
 !.gitkeep
+.vscode/
