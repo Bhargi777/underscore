@@ -96,3 +96,7 @@ def health_check():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("backend.main:app", host=settings.API_HOST, port=settings.API_PORT, reload=True)
+
+# Wrap the FastAPI application via Mangum for AWS Lambda/API Gateway compatibility
+from mangum import Mangum
+handler = Mangum(app)
