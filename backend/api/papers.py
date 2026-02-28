@@ -20,16 +20,22 @@ async def upload_paper(
     project_id: Optional[int] = Form(None),
     db: Session = Depends(get_db)
 ):
-    # 1. Save File
+    # 1. Save File to Amazon S3
     file_id = str(uuid4())
     filename = f"{file_id}_{file.filename}"
     file_path = PDF_DIR / filename
     
     try:
+        from backend.services.aws_service import aws_service
+        # Write temporarily to disk for Celest workers to optionally use, then upload to S3
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
+        
+        # Upload the file to S3
+        s3_object_name = f"papers/{filename}"
+        aws_service.upload_to_s3(str(file_path), s3_object_name)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to save file: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to save file to S3: {e}")
 
     # 2. Create Paper Record (Operational)
     new_paper = Paper(
