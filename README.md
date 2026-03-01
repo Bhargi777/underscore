@@ -12,10 +12,8 @@
 
 ## Prerequisites
 
-- **Docker Desktop** (for Neo4j and Redis)
 - **Python 3.10+**
 - **Node.js 18+** & **npm**
-- **Grobid** (Optional, for robust PDF parsing - typically runs in Docker)
 
 ## Installation
 
@@ -46,7 +44,7 @@
 5.  Configure Environment:
     - Copy the example environment file (if available) or create `.env`.
     - Ensure `OPENAI_API_KEY` (or your local LLM config) is set.
-    - Ensure Neo4j credentials match `docker-compose.yml`.
+    - Ensure Neo4j credentials match your cloud database configuration.
 
 ### 2. Frontend Setup
 
@@ -62,14 +60,7 @@
 
 ## Running the System
 
-### 1. Start Infrastructure (Database & Services)
-
-Start Neo4j, Redis, and Grobid using Docker:
-```bash
-docker-compose up -d
-```
-
-### 2. Start Backend
+### 1. Start Backend
 
 You can use the helper script (Git Bash/Linux) or run commands manually.
 
@@ -90,7 +81,7 @@ celery -A backend.workers.celery_app worker --loglevel=info -P solo
 ```
 *(Note: `-P solo` is recommended for Windows)*
 
-### 3. Start Frontend
+### 2. Start Frontend
 
 ```bash
 cd frontend
@@ -107,7 +98,6 @@ Access the UI at: **http://localhost:5173**
 
 ## Troubleshooting
 
-- **Neo4j Connection Error**: Ensure Docker is running and the password in `.env` matches `docker-compose.yml` (Default: `password`).
-- **PDF Parsing Fails**: Ensure the Grobid service is healthy (`localhost:8070`).
+- **Neo4j Connection Error**: Ensure the password in `.env` matches your cloud database configuration.
 
 
