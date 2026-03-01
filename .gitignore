@@ -19,3 +19,4 @@ storage/cache/*
 .vscode/
 package-lock.json
 storage/
+setup_guide.md
